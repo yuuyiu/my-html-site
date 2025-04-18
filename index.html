@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 App - 頁面展示</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --iphone-width: 393px;
+            --iphone-height: 852px;
+            --iphone-scale: 0.4;
+            --showcase-gap: 2rem;
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(calc(var(--iphone-width) * var(--iphone-scale)), 1fr));
+            gap: var(--showcase-gap);
+            padding: var(--showcase-gap);
+        }
+
+        .showcase-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .showcase-title {
+            font-family: 'Philosopher', sans-serif;
+            color: var(--color-primary);
+            font-size: 1rem;
+            text-align: center;
+            margin: 0;
+        }
+
+        .iphone-frame {
+            width: calc(var(--iphone-width) * var(--iphone-scale));
+            height: calc(var(--iphone-height) * var(--iphone-scale));
+            background: white;
+            border-radius: calc(50px * var(--iphone-scale));
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 calc(12px * var(--iphone-scale)) #1a1a1a,
+                0 calc(25px * var(--iphone-scale)) calc(50px * var(--iphone-scale)) calc(-12px * var(--iphone-scale)) rgba(0, 0, 0, 0.2);
+            transform-origin: top left;
+        }
+
+        .iphone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(120px * var(--iphone-scale));
+            height: calc(35px * var(--iphone-scale));
+            background: #1a1a1a;
+            border-bottom-left-radius: calc(24px * var(--iphone-scale));
+            border-bottom-right-radius: calc(24px * var(--iphone-scale));
+            z-index: 100;
+        }
+
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: calc(44px * var(--iphone-scale));
+            background: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 calc(20px * var(--iphone-scale));
+            color: #1a1a1a;
+            font-size: calc(14px * var(--iphone-scale));
+            font-weight: 600;
+            z-index: 99;
+        }
+
+        .status-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-bar-right {
+            display: flex;
+            align-items: center;
+            gap: calc(5px * var(--iphone-scale));
+        }
+
+        .signal-bars {
+            display: flex;
+            gap: calc(2px * var(--iphone-scale));
+            margin-right: calc(5px * var(--iphone-scale));
+        }
+
+        .signal-bar {
+            width: calc(3px * var(--iphone-scale));
+            height: calc(8px * var(--iphone-scale));
+            background: #1a1a1a;
+            border-radius: calc(1px * var(--iphone-scale));
+        }
+
+        .battery-icon {
+            width: calc(20px * var(--iphone-scale));
+            height: calc(10px * var(--iphone-scale));
+            border: calc(1px * var(--iphone-scale)) solid #1a1a1a;
+            border-radius: calc(2px * var(--iphone-scale));
+            position: relative;
+            margin-left: calc(5px * var(--iphone-scale));
+        }
+
+        .battery-icon::after {
+            content: '';
+            position: absolute;
+            right: calc(-3px * var(--iphone-scale));
+            top: 50%;
+            transform: translateY(-50%);
+            width: calc(2px * var(--iphone-scale));
+            height: calc(4px * var(--iphone-scale));
+            background: #1a1a1a;
+            border-radius: 0 calc(1px * var(--iphone-scale)) calc(1px * var(--iphone-scale)) 0;
+        }
+
+        .battery-level {
+            position: absolute;
+            left: calc(1px * var(--iphone-scale));
+            top: calc(1px * var(--iphone-scale));
+            bottom: calc(1px * var(--iphone-scale));
+            width: 80%;
+            background: #1a1a1a;
+            border-radius: calc(1px * var(--iphone-scale));
+        }
+
+        .iframe-container {
+            width: calc(var(--iphone-width));
+            height: calc(var(--iphone-height));
+            transform: scale(var(--iphone-scale));
+            transform-origin: top left;
+            border-radius: 45px;
+        }
+
+        .page-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 45px;
+        }
+
+        .page-header {
+            background: linear-gradient(to right, #825D65, #E9CCBE);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin: -2rem -2rem 2rem -2rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Philosopher', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .page-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>心靈釋放 App</h1>
+        <p>頁面展示 - iPhone 15 模擬</p>
+    </header>
+
+    <div class="showcase-grid">
+        <!-- 登入頁面 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">登入頁面</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/login.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 註冊頁面 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">註冊頁面</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/signup.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 首頁 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">首頁</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/home.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽卡頁面 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">抽卡</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/card-draw.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 信念牆 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">信念牆</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/belief-wall.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 統計分析 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">統計分析</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/stats.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 個人檔案 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">個人檔案</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/profile.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題選擇 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">主題選擇</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/theme-selector.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 引導問題 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">引導問題</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/prompt-selector.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 深層書寫 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">深層書寫</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/deep-writing.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 記憶重寫 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">記憶重寫</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/memory-rewrite.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 深層療癒完成 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">深層療癒完成</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/deep-complete.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 每日流程日曆 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">每日流程日曆</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/daily-flow-calendar.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 每日釋放書寫 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">每日釋放書寫</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/daily-release-writing.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 每日釋放完成 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">每日釋放完成</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/daily-release-complete.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 旅程總覽 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">旅程總覽</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/my-journey.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 旅程反思 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">旅程反思</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/my-journey-reflect.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 內在成長 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">內在成長</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/my-journey-growth.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行動計畫 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">行動計畫</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/my-journey-action.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 前後比較 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">前後比較</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/my-journey-compare.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 升級會員 -->
+        <div class="showcase-item">
+            <h2 class="showcase-title">升級會員</h2>
+            <div class="iphone-frame">
+                <div class="iphone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <div class="signal-bars">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <span>5G</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <i class="fas fa-wifi"></i>
+                        <span>100%</span>
+                        <div class="battery-icon">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/upgrade.html" class="page-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframes = document.querySelectorAll('.page-iframe');
+            iframes.forEach(iframe => {
+                iframe.onload = function() {
+                    try {
+                        const height = iframe.contentWindow.document.body.scrollHeight;
+                        iframe.style.height = height + 'px';
+                    } catch(e) {
+                        console.log('無法調整 iframe 高度:', e);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
