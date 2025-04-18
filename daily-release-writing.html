@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 日常情緒釋放</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-brown: #40372F;
+            --color-brown-light: #736558;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .writing-header {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .card-display {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .card-display:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .emotion-item {
+            background: white;
+            border: 1px solid var(--color-accent);
+            transition: all 0.3s ease;
+        }
+                .filter-tag.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .emotion-item.selected {
+            background: var(--color-accent);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .writing-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .writing-area {
+            color: var(--color-text);
+            font-family: 'Noto Serif HK', serif;
+        }
+
+        .writing-area:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .writing-prompt {
+            background: var(--color-accent);
+            border: 1px solid var(--color-primary);
+            color: var(--color-brown);
+        }
+
+        .sedona-method {
+            border-color: var(--color-accent);
+        }
+
+        .color-dot {
+            border: 2px solid transparent;
+        }
+
+        .color-dot.selected {
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .tag-pill {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .tag-pill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .step-indicator {
+            background: var(--color-accent);
+            padding: 4px;
+            border-radius: 9999px;
+        }
+
+        .step-indicator div {
+            color: var(--color-text);
+            transition: all 0.3s ease;
+        }
+
+        .step-indicator .active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .step-indicator .completed {
+            background: var(--color-brown-light);
+            color: white;
+        }
+
+        .complete-button {
+            background: var(--color-primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wave-top .shape-fill {
+            fill: var(--color-bg);
+        }
+        
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 頁面內容容器 -->
+    <main class="min-h-screen pb-20 page-enter">
+        <!-- 頂部標題 -->
+        <section class="writing-header text-black-50 p-6 pt-12 pb-14 rounded-b-3xl relative mb-8">
+            <div class="ink-line"></div>
+            <h1 class="main-title">Daily Release</h1>
+            <div class="container mx-auto max-w-4xl">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <span class="bg-white bg-opacity-30 text-black-50 text-xs font-medium px-2.5 py-1 rounded-full mb-2 inline-block">日常釋放</span>
+                        <h1 class="text-2xl font-bold" style="color: var(--color-brown);">情緒釋放練習</h1>
+                    </div>
+                    <a href="home.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                        <i class="fas fa-times" style="color: var(--color-brown);"></i>
+                    </a>
+                </div>
+                <p style="color: var(--color-brown);" class="text-opacity-90 text-sm mt-1">透過書寫和引導釋放情緒，找回內在平靜</p>
+                
+                <!-- 步驟指示器 -->
+                <div class="step-indicator flex items-center justify-between mt-6 p-1.5 bg-white bg-opacity-20 rounded-full">
+                    <div class="active px-3 py-1.5 text-xs font-medium rounded-full">卡片連結</div>
+                    <div class="px-3 py-1.5 text-xs font-medium rounded-full">釋放書寫</div>
+                    <div class="px-3 py-1.5 text-xs font-medium rounded-full">色彩療癒</div>
+                    <div class="px-3 py-1.5 text-xs font-medium rounded-full">完成</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 卡片顯示區 -->
+        <section class="px-5 mb-6">
+            <div class="card-display p-5 flex items-center overflow-hidden relative">
+                <div class="card-image flex-shrink-0 w-20 h-28 bg-indigo-100 rounded-lg mr-4 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="貓頭鷹" class="w-full h-full object-cover">
+                </div>
+                <div class="card-info pr-10">
+                    <span class="text-xs font-semibold" style="color: var(--color-primary);">#32 靈感者</span>
+                    <h3 class="text-lg font-bold" style="color: var(--color-brown);">貓頭鷹</h3>
+                    <p class="text-sm" style="color: var(--color-text-secondary);">象徵智慧與洞察力，提供更廣闊的視角</p>
+                </div>
+                <div class="absolute right-4">
+                    <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- 情緒選擇區 -->
+        <section class="px-5 mb-6 reveal-enter">
+            <h2 class="text-lg font-semibold mb-4 flex items-center" style="color: var(--color-brown);">
+                <i class="fas fa-heart-broken mr-2" style="color: var(--color-primary);"></i>
+                選擇需要釋放的情緒
+            </h2>
+            <div class="grid grid-cols-3 gap-2 mb-4">
+                <div class="emotion-item p-2 rounded-lg flex flex-col items-center">
+                    <span class="text-lg mb-1">😠</span>
+                    <span class="text-xs font-medium">憤怒</span>
+                </div>
+                <div class="emotion-item p-2 rounded-lg flex flex-col items-center">
+                    <span class="text-lg mb-1">😢</span>
+                    <span class="text-xs font-medium">悲傷</span>
+                </div>
+                <div class="emotion-item p-2 rounded-lg flex flex-col items-center">
+                    <span class="text-lg mb-1">😨</span>
+                    <span class="text-xs font-medium">恐懼</span>
+                </div>
+                <div class="emotion-item p-2 rounded-lg flex flex-col items-center">
+                    <span class="text-lg mb-1">😔</span>
+                    <span class="text-xs font-medium">失落</span>
+                </div>
+                <div class="emotion-item p-2 rounded-lg flex flex-col items-center">
+                    <span class="text-lg mb-1">😰</span>
+                    <span class="text-xs font-medium">焦慮</span>
+                </div>
+                <div class="emotion-item p-2 rounded-lg flex flex-col items-center">
+                    <span class="text-lg mb-1">😞</span>
+                    <span class="text-xs font-medium">挫折</span>
+                </div>
+            </div>
+            <button class="text-sm font-medium" style="color: var(--color-primary);">+ 新增其他情緒</button>
+        </section>
+
+        <!-- 寫作區域 -->
+        <section class="px-5 mb-8 reveal-enter">
+            <h2 class="text-lg font-semibold mb-2 flex items-center" style="color: var(--color-brown);">
+                <i class="fas fa-feather-alt mr-2" style="color: var(--color-primary);"></i>
+                開始釋放
+            </h2>
+            <p class="text-sm mb-4" style="color: var(--color-text-secondary);">請描述你的情緒感受，不必擔心文字是否完美。讓情緒自然流動。</p>
+            
+            <div class="writing-container p-5">
+                <textarea class="writing-area w-full bg-transparent outline-none resize-none" placeholder="今天我感到...（與貓頭鷹卡片連結，感受它帶給我的智慧和洞察力...）"></textarea>
+                
+                <!-- 寫作提示 -->
+                <div class="writing-prompt p-3 mt-2 rounded-lg">
+                    <h4 class="text-sm font-medium mb-1" style="color: var(--color-brown);">今日提示</h4>
+                    <p class="text-xs" style="color: var(--color-text);">當我面對這種情緒時，我能從貓頭鷹的品質中學習到什麼？它如何幫助我看到更廣闊的視角？</p>
+                </div>
+                
+                <!-- 賽多納方法 -->
+                <div class="sedona-method mt-4 p-4 border border-dashed rounded-lg">
+                    <h4 class="text-sm font-medium mb-2 flex items-center" style="color: var(--color-brown);">
+                        <span class="inline-flex items-center justify-center w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mr-2">S</span>
+                        賽多納方法
+                    </h4>
+                    <p class="text-xs mb-3" style="color: var(--color-text-secondary);">使用以下問題幫助深層釋放情緒：</p>
+                    <ol class="text-xs space-y-2" style="color: var(--color-text);">
+                        <li class="flex items-start">
+                            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold mr-2 flex-shrink-0" style="background: var(--color-accent); color: var(--color-brown);">1</span>
+                            <span>我能否允許這個情緒此刻存在？</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold mr-2 flex-shrink-0" style="background: var(--color-accent); color: var(--color-brown);">2</span>
+                            <span>我能否歡迎這個情緒的存在？</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold mr-2 flex-shrink-0" style="background: var(--color-accent); color: var(--color-brown);">3</span>
+                            <span>我能否放下這個情緒？</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold mr-2 flex-shrink-0" style="background: var(--color-accent); color: var(--color-brown);">4</span>
+                            <span>什麼時候開始放下？</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- 色彩療癒選擇 -->
+        <section class="px-5 mb-8 reveal-enter">
+            <h2 class="text-lg font-semibold mb-2 flex items-center" style="color: var(--color-brown);">
+                <i class="fas fa-palette mr-2" style="color: var(--color-primary);"></i>
+                色彩療癒
+            </h2>
+            <p class="text-sm mb-4" style="color: var(--color-text-secondary);">選擇一種顏色，讓它幫助釋放你的情緒</p>
+            
+            <div class="writing-container p-5">
+                <div class="flex justify-center space-x-3 mb-5">
+                    <div class="color-dot bg-red-500"></div>
+                    <div class="color-dot bg-orange-400"></div>
+                    <div class="color-dot bg-yellow-400"></div>
+                    <div class="color-dot bg-green-500"></div>
+                    <div class="color-dot bg-blue-500 selected"></div>
+                    <div class="color-dot bg-indigo-500"></div>
+                    <div class="color-dot bg-purple-500"></div>
+                </div>
+                
+                <div class="p-4 rounded-lg" style="background: var(--color-accent);">
+                    <h4 class="text-sm font-medium mb-2" style="color: var(--color-brown);">藍色療癒冥想</h4>
+                    <p class="text-xs mb-3" style="color: var(--color-text);">藍色代表平靜、和平與信任。它能幫助你釋放焦慮，找回內心的平靜。</p>
+                    <div class="meditation-suggestion">
+                        <p class="text-xs" style="color: var(--color-text-secondary);">
+                            <span class="font-medium">冥想建議：</span>
+                            閉上眼睛，想像溫和的藍光環繞著你，吸入藍色的平靜能量，呼出壓力和焦慮。每次呼吸都讓藍色更加深入你的全身。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 標籤區域 -->
+        <section class="px-5 mb-6 reveal-enter">
+            <h2 class="text-lg font-semibold mb-3 flex items-center" style="color: var(--color-brown);">
+                <i class="fas fa-tags mr-2" style="color: var(--color-primary);"></i>
+                新增標籤
+            </h2>
+            
+            <div class="flex flex-wrap">
+                <div class="tag-pill px-3 py-1.5 rounded-full mr-2 mb-2">焦慮</div>
+                <div class="tag-pill px-3 py-1.5 rounded-full mr-2 mb-2">工作壓力</div>
+                <div class="tag-pill px-3 py-1.5 rounded-full mr-2 mb-2">人際關係</div>
+                <div class="tag-pill px-3 py-1.5 rounded-full mr-2 mb-2 flex items-center" style="background: var(--color-primary); color: white;">
+                    <i class="fas fa-plus mr-1 text-xs"></i>
+                    新增標籤
+                </div>
+            </div>
+        </section>
+
+        <!-- 完成按鈕 -->
+        <section class="px-5 mb-6 text-center reveal-enter">
+            <button class="complete-button py-4 rounded-lg w-full shadow-lg flex items-center justify-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                完成釋放練習
+            </button>
+            <p class="text-xs mt-2" style="color: var(--color-text-secondary);">完成後將進入總結頁面</p>
+        </section>
+    </main>
+    
+    <script>
+        // ... existing code ...
+    </script>
+</body>
+</html> 

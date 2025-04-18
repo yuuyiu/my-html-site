@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 登入</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-brown: #40372F;
+            --color-brown-light: #736558;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-header {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .form-container {
+            animation: slideUp 0.5s ease-out;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 2;
+            position: relative;
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+            background: white;
+            border: 1px solid var(--color-accent);
+            position: relative;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+        }
+
+        .social-login-btn {
+            transition: all 0.3s ease;
+            background: var(--color-accent);
+            color: var(--color-primary);
+            border-radius: 9999px;
+        }
+
+        .social-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-button {
+            background: var(--color-primary);
+            color: white;
+            border-radius: 16px;
+            padding: 16px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-icon {
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-primary);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main class="min-h-screen page-enter">
+        <!-- 頂部標題 -->
+        <section class="login-header p-6 pt-12 pb-15 relative">
+            <div class="ink-line"></div>
+            <div class="container mx-auto max-w-4xl">
+                <div class="flex justify-center items-center mb-6">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-seedling text-3xl" style="color: var(--color-primary);"></i>
+                    </div>
+                </div>
+                <h1 class="main-title">Inner Release</h1>
+                <p style="color: var(--color-brown);" class="text-center text-sm">開始您的內在成長之旅</p>
+            </div>
+        </section>
+        
+        <!-- 登入表單 -->
+        <section class="px-5 -mt-12 relative z-10">
+            <div class="form-container p-6">
+                <h2 class="text-xl font-medium mb-6 text-center" style="color: var(--color-brown);">登入您的帳號</h2>
+                
+                <!-- 電子郵件輸入 -->
+                <div class="mb-4 relative">
+                    <label for="email" class="block text-sm font-medium mb-1" style="color: var(--color-brown);">電子郵件</label>
+                    <div class="relative">
+                        <input type="email" id="email" class="form-input w-full pl-10 p-3 rounded-lg" placeholder="請輸入您的電子郵件">
+                        <i class="fas fa-envelope absolute left-3 input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- 密碼輸入 -->
+                <div class="mb-4 relative">
+                    <div class="flex justify-between items-center mb-1">
+                        <label for="password" class="block text-sm font-medium" style="color: var(--color-brown);">密碼</label>
+                        <a href="#" class="text-xs" style="color: var(--color-primary);">忘記密碼？</a>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="password" class="form-input w-full pl-10 p-3 rounded-lg" placeholder="請輸入您的密碼">
+                        <i class="fas fa-lock absolute left-3 input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- 登入按鈕 -->
+                <button class="login-button mt-6 mb-6">
+                    登入
+                </button>
+                
+                <!-- 分隔線 -->
+                <div class="flex items-center my-6">
+                    <div class="flex-grow border-t" style="border-color: var(--color-accent);"></div>
+                    <span class="px-3 text-sm" style="color: var(--color-text-secondary);">或使用</span>
+                    <div class="flex-grow border-t" style="border-color: var(--color-accent);"></div>
+                </div>
+                
+                <!-- 社群登入 -->
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button class="social-login-btn w-14 h-14 flex items-center justify-center">
+                        <i class="fab fa-google text-xl"></i>
+                    </button>
+                    <button class="social-login-btn w-14 h-14 flex items-center justify-center">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </button>
+                    <button class="social-login-btn w-14 h-14 flex items-center justify-center">
+                        <i class="fab fa-apple text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- 註冊連結 -->
+                <div class="text-center">
+                    <span class="text-sm" style="color: var(--color-text-secondary);">還沒有帳號？</span>
+                    <a href="signup.html" class="text-sm font-medium ml-1" style="color: var(--color-primary);">立即註冊</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 附加資訊 -->
+        <section class="px-5 mt-6 mb-8">
+            <div class="text-center text-xs" style="color: var(--color-text-secondary);">
+                <p>登入即表示您同意我們的</p>
+                <p><a href="#" style="color: var(--color-primary);">服務條款</a> 和 <a href="#" style="color: var(--color-primary);">隱私政策</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginButton = document.querySelector('.login-button');
+            
+            loginButton.addEventListener('click', function() {
+                // 模擬登入過程，實際應用中應改為實際的登入邏輯
+                window.location.href = 'home.html';
+            });
+        });
+    </script>
+</body>
+</html> 

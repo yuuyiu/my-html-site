@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 行動方向</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-brown: #40372F;
+            --color-brown-light: #736558;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .action-header {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .task-progress {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 4px;
+            background: var(--color-accent);
+            border-radius: 9999px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-point {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 2;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .progress-point.completed {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .progress-point.current {
+            box-shadow: 0 0 0 4px rgba(130, 93, 101, 0.2);
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 3px;
+            background-color: var(--color-accent);
+            position: relative;
+        }
+
+        .progress-line.completed {
+            background-color: var(--color-primary);
+        }
+
+        .action-textarea {
+            min-height: 120px;
+            transition: all 0.3s ease;
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid var(--color-accent);
+            line-height: 1.6;
+        }
+
+        .action-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-box {
+            border-top: 4px solid var(--color-primary);
+            animation: fadeIn 0.5s ease-out;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .time-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--color-accent);
+            color: var(--color-text);
+            border-radius: 9999px;
+            padding: 8px 16px;
+        }
+
+        .time-option:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .time-option.selected {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .reminder-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid var(--color-accent);
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .reminder-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .reminder-option.selected {
+            border-color: var(--color-primary);
+            background-color: var(--color-accent);
+        }
+
+        .action-suggestion {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.8;
+            border-radius: 16px;
+            padding: 16px;
+            background: var(--color-accent);
+        }
+
+        .action-suggestion:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-step {
+            position: relative;
+            counter-increment: action-step;
+            padding-left: 40px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .action-step::before {
+            content: counter(action-step);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: var(--color-primary);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .belief-badge {
+            top: -10px;
+            right: -10px;
+            z-index: 10;
+            background-color: var(--color-primary);
+        }
+
+        .complete-button {
+            background: var(--color-primary);
+            color: white;
+            border-radius: 16px;
+            padding: 16px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .save-indicator {
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: var(--color-primary);
+        }
+
+        .save-indicator.visible {
+            opacity: 1;
+        }
+
+        input[type="date"] {
+            color-scheme: light;
+            border: 1px solid var(--color-accent);
+            border-radius: 16px;
+            padding: 12px;
+            width: 100%;
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        input[type="date"]:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confetti 3s ease-in-out forwards;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main class="min-h-screen pb-20 page-enter relative overflow-hidden">
+        <!-- 頂部標題 -->
+        <section class="action-header p-6 pt-12 pb-8 relative">
+            <div class="ink-line"></div>
+            <div class="container mx-auto max-w-4xl">
+                <div class="flex justify-between items-center mb-4">
+                    <a href="my-journey.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                        <i class="fas fa-arrow-left" style="color: var(--color-brown);"></i>
+                    </a>
+                    <h1 class="main-title">Action Plan</h1>
+                    <a href="javascript:void(0)" class="bg-white bg-opacity-30 p-2 rounded-full" id="helpButton">
+                        <i class="fas fa-lightbulb" style="color: var(--color-brown);"></i>
+                    </a>
+                </div>
+                <p style="color: var(--color-brown);" class="text-center text-sm">將內在成長轉化為具體行動</p>
+                
+                <div class="task-progress mt-6">
+                    <div class="progress-point completed">
+                        <i class="fas fa-check text-xs"></i>
+                    </div>
+                    <div class="progress-line completed"></div>
+                    <div class="progress-point completed">
+                        <i class="fas fa-check text-xs"></i>
+                    </div>
+                    <div class="progress-line completed"></div>
+                    <div class="progress-point current">
+                        <span>3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 核心承諾 -->
+        <section class="px-5 mt-6">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--color-brown);">我的核心承諾</h2>
+            
+            <div class="action-box p-5 mb-5">
+                <div class="mb-4">
+                    <label for="commitmentText" class="block text-sm font-medium mb-2" style="color: var(--color-brown);">我承諾...</label>
+                    <textarea id="commitmentText" class="action-textarea w-full resize-none" placeholder="例如：我承諾每天花5分鐘覺察我的情緒，並給予自己接納和理解..."></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <p class="block text-sm font-medium mb-2" style="color: var(--color-brown);">目標完成時間</p>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="time-option">1週內</div>
+                        <div class="time-option">2週內</div>
+                        <div class="time-option">1個月內</div>
+                        <div class="time-option">持續習慣</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <p class="block text-sm font-medium mb-2" style="color: var(--color-brown);">具體日期</p>
+                    <input type="date" class="focus:ring-2 focus:ring-primary">
+                </div>
+            </div>
+        </section>
+        
+        <!-- 行動步驟 -->
+        <section class="px-5 mt-6">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--color-brown);">分解為具體步驟</h2>
+            
+            <div class="action-box p-5 mb-5">
+                <div class="action-step">
+                    <input type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2" style="border-color: var(--color-accent);" placeholder="第一個步驟...">
+                </div>
+                
+                <div class="action-step">
+                    <input type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2" style="border-color: var(--color-accent);" placeholder="第二個步驟...">
+                </div>
+                
+                <div class="action-step">
+                    <input type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2" style="border-color: var(--color-accent);" placeholder="第三個步驟...">
+                </div>
+                
+                <button id="addStepBtn" class="mt-4 w-full py-2 border border-dashed rounded-lg flex items-center justify-center" style="border-color: var(--color-primary); color: var(--color-primary);">
+                    <i class="fas fa-plus mr-2"></i> 新增步驟
+                </button>
+            </div>
+        </section>
+        
+        <!-- 行動靈感 -->
+        <section class="px-5 mt-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold" style="color: var(--color-brown);">行動建議</h2>
+                <button id="refreshSuggestions" class="text-sm" style="color: var(--color-primary);">
+                    <i class="fas fa-sync-alt"></i> 刷新
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-3 mb-5">
+                <div class="action-suggestion">
+                    <p style="color: var(--color-brown);" class="text-sm">每天早上花5分鐘冥想，覺察身體的感受</p>
+                </div>
+                
+                <div class="action-suggestion">
+                    <p style="color: var(--color-brown);" class="text-sm">與一位你信任的人分享你的情緒釋放經驗</p>
+                </div>
+                
+                <div class="action-suggestion">
+                    <p style="color: var(--color-brown);" class="text-sm">建立一本感恩日記，每天記錄3件感謝的事</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 提醒設置 -->
+        <section class="px-5 mt-6">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--color-brown);">設置提醒</h2>
+            
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="reminder-option">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-bell mr-2" style="color: var(--color-primary);"></i>
+                        <span style="color: var(--color-brown);" class="font-medium">App提醒</span>
+                    </div>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">在App中收到提醒通知</p>
+                </div>
+                
+                <div class="reminder-option">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-calendar-check mr-2" style="color: var(--color-primary);"></i>
+                        <span style="color: var(--color-brown);" class="font-medium">行事曆</span>
+                    </div>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">新增至你的行事曆</p>
+                </div>
+                
+                <div class="reminder-option">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-envelope mr-2" style="color: var(--color-primary);"></i>
+                        <span style="color: var(--color-brown);" class="font-medium">電子郵件</span>
+                    </div>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">傳送電子郵件提醒</p>
+                </div>
+                
+                <div class="reminder-option">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-times mr-2" style="color: var(--color-text-secondary);"></i>
+                        <span style="color: var(--color-brown);" class="font-medium">不需提醒</span>
+                    </div>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">稍後自行設置</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 儲存至信念牆選項 -->
+        <section class="px-5 mt-6">
+            <div class="action-box p-5 relative mb-5">
+                <div class="absolute belief-badge w-6 h-6 rounded-full flex items-center justify-center">
+                    <i class="fas fa-heart text-white text-xs"></i>
+                </div>
+                
+                <h3 class="font-medium mb-3" style="color: var(--color-brown);">儲存至我的信念牆</h3>
+                
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="saveBeliefWall" class="w-5 h-5 rounded focus:ring-2" style="color: var(--color-primary); border-color: var(--color-accent);">
+                    <label for="saveBeliefWall" class="ml-2 block text-sm" style="color: var(--color-text);">
+                        將我的核心承諾儲存至信念牆
+                    </label>
+                </div>
+                
+                <div class="text-xs" style="color: var(--color-text-secondary);">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    信念牆收集你的正向信念，幫助你持續保持動力
+                </div>
+            </div>
+        </section>
+        
+        <!-- 完成按鈕 -->
+        <section class="px-5 mt-6 mb-8 flex justify-center">
+            <div class="w-full max-w-md flex flex-col items-center">
+                <button id="completeButton" class="complete-button mb-2">
+                    <i class="fas fa-check-circle mr-2"></i> 完成所有任務
+                </button>
+                <div id="saveIndicator" class="save-indicator text-sm">
+                    <i class="fas fa-check-circle mr-1"></i> 已自動儲存草稿
+                </div>
+            </div>
+        </section>
+        
+        <!-- 紙屑效果容器 -->
+        <div id="confetti-container"></div>
+        
+        <!-- 完成彈窗 -->
+        <div id="completionModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10 hidden">
+            <div class="bg-white rounded-xl p-5 w-4/5 max-w-sm">
+                <div class="text-center mb-5">
+                    <div class="inline-block w-20 h-20 rounded-full flex items-center justify-center mb-4" style="background: var(--color-accent);">
+                        <i class="fas fa-trophy text-4xl" style="color: var(--color-primary);"></i>
+                    </div>
+                    <h3 class="font-bold text-xl" style="color: var(--color-brown);">恭喜完成！</h3>
+                    <p style="color: var(--color-text);" class="mt-2">你已經完成了第2週期的所有任務</p>
+                </div>
+                
+                <div class="p-4 rounded-lg mb-5" style="background: var(--color-accent);">
+                    <p class="text-sm" style="color: var(--color-brown);">
+                        <i class="fas fa-lightbulb mr-1"></i>
+                        繼續保持每日的情緒釋放，下一個週期將在10次釋放後開啟
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="my-journey.html" class="py-3 rounded-lg text-center" style="background: var(--color-accent); color: var(--color-brown);">
+                        返回旅程
+                    </a>
+                    <a href="home.html" class="py-3 rounded-lg text-center text-white" style="background: var(--color-primary);">
+                        回到首頁
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const commitmentText = document.getElementById('commitmentText');
+            const saveIndicator = document.getElementById('saveIndicator');
+            const completeButton = document.getElementById('completeButton');
+            const completionModal = document.getElementById('completionModal');
+            const timeOptions = document.querySelectorAll('.time-option');
+            const reminderOptions = document.querySelectorAll('.reminder-option');
+            const actionSuggestions = document.querySelectorAll('.action-suggestion');
+            const addStepBtn = document.getElementById('addStepBtn');
+            const refreshSuggestionsBtn = document.getElementById('refreshSuggestions');
+            
+            // 時間選項選擇
+            timeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    timeOptions.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            // 提醒選項選擇
+            reminderOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    reminderOptions.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            // 行動建議點擊事件
+            actionSuggestions.forEach(suggestion => {
+                suggestion.addEventListener('click', function() {
+                    commitmentText.value = this.querySelector('p').textContent;
+                    
+                    // 顯示儲存指示器
+                    saveIndicator.classList.add('visible');
+                    setTimeout(() => {
+                        saveIndicator.classList.remove('visible');
+                    }, 2000);
+                });
+            });
+            
+            // 新增步驟按鈕
+            addStepBtn.addEventListener('click', function() {
+                const stepsContainer = this.parentElement;
+                const newStep = document.createElement('div');
+                newStep.className = 'action-step';
+                newStep.innerHTML = `
+                    <input type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2" style="border-color: var(--color-accent);" placeholder="新步驟...">
+                `;
+                stepsContainer.insertBefore(newStep, this);
+            });
+            
+            // 刷新建議按鈕
+            refreshSuggestionsBtn.addEventListener('click', function() {
+                const suggestions = [
+                    "每天花10分鐘寫日記，記錄當天的情緒變化",
+                    "每週安排一次與朋友的深度交流，真誠分享感受",
+                    "建立每日三個感恩練習，培養正向視角",
+                    "嘗試新的呼吸練習，在焦慮時調節情緒",
+                    "為自己設立小型自我關愛儀式，如冥想或泡澡",
+                    "開始練習正念冥想，每天5-10分鐘",
+                    "減少社交媒體使用時間，多關注內在感受",
+                    "建立一個情緒追蹤日記，觀察情緒模式"
+                ];
+                
+                // 隨機選擇三個不重複的建議
+                const selectedSuggestions = [];
+                while (selectedSuggestions.length < 3) {
+                    const randomIndex = Math.floor(Math.random() * suggestions.length);
+                    if (!selectedSuggestions.includes(suggestions[randomIndex])) {
+                        selectedSuggestions.push(suggestions[randomIndex]);
+                    }
+                }
+                
+                // 更新建議文本
+                actionSuggestions.forEach((suggestion, index) => {
+                    suggestion.querySelector('p').textContent = selectedSuggestions[index];
+                });
+            });
+            
+            // 自動儲存
+            let saveTimeout;
+            commitmentText.addEventListener('input', function() {
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(() => {
+                    // 模擬儲存到本地儲存或伺服器
+                    localStorage.setItem('action_commitment', commitmentText.value);
+                    
+                    // 顯示儲存指示器
+                    saveIndicator.classList.add('visible');
+                    setTimeout(() => {
+                        saveIndicator.classList.remove('visible');
+                    }, 2000);
+                }, 1500);
+            });
+            
+            // 載入已儲存的草稿
+            if (localStorage.getItem('action_commitment')) {
+                commitmentText.value = localStorage.getItem('action_commitment');
+            }
+            
+            // 完成按鈕點擊事件
+            completeButton.addEventListener('click', function() {
+                if (commitmentText.value.trim().length < 10) {
+                    alert('請至少寫10個字在「我承諾...」欄位中');
+                    return;
+                }
+                
+                // 儲存數據
+                localStorage.setItem('action_completed', 'true');
+                localStorage.setItem('action_commitment', commitmentText.value);
+                
+                // 收集步驟
+                const steps = [];
+                document.querySelectorAll('.action-step input').forEach(input => {
+                    if (input.value.trim()) {
+                        steps.push(input.value.trim());
+                    }
+                });
+                localStorage.setItem('action_steps', JSON.stringify(steps));
+                
+                // 創建紙屑效果
+                createConfetti();
+                
+                // 顯示完成彈窗
+                setTimeout(() => {
+                    completionModal.classList.remove('hidden');
+                }, 1000);
+            });
+            
+            // 紙屑效果函数
+            function createConfetti() {
+                const container = document.getElementById('confetti-container');
+                const colors = ['#825D65', '#F2EFE8', '#40372F', '#736558'];
+                
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.classList.add('confetti');
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.width = Math.random() * 10 + 5 + 'px';
+                        confetti.style.height = Math.random() * 10 + 5 + 'px';
+                        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                        container.appendChild(confetti);
+                        
+                        // 移除紙屑
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, 5000);
+                    }, Math.random() * 1500);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 深層書寫</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-brown: #40372F;
+            --color-brown-light: #736558;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .deep-writing-header {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .theme-tag {
+            animation: fadeIn 0.5s ease-out;
+            background: var(--color-accent);
+            color: var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .prompt-box {
+            background: var(--color-accent);
+            border-left: 4px solid var(--color-primary);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .writing-textarea {
+            min-height: 200px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid var(--color-accent);
+        }
+
+        .writing-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .word-counter {
+            transition: all 0.3s ease;
+            color: var(--color-text-secondary);
+        }
+
+        .word-counter.reached {
+            color: var(--color-primary);
+        }
+
+        .timer {
+            animation: fadeIn 0.5s ease-out;
+            color: var(--color-text-secondary);
+        }
+
+        .animal-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .animal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .animal-card-inner {
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--color-accent);
+        }
+
+        .emotion-chip {
+            transition: all 0.3s ease;
+            background: var(--color-accent);
+            color: var(--color-text);
+            border-radius: 9999px;
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .emotion-chip:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .emotion-chip.selected {
+            background: var(--color-primary);
+            color: white;
+        }
+        
+        .task-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .progress-point {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .progress-point.completed {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .progress-point.current {
+            background: var(--color-primary);
+            color: white;
+            transform: scale(1.2);
+            box-shadow: 0 0 0 4px rgba(130, 93, 101, 0.2);
+            width: 28px;
+            height: 28px;
+            font-size: 1.1em;
+        }
+
+        .progress-line {
+            width: 30px;
+            height: 2px;
+            background: var(--color-accent);
+            transition: all 0.3s ease;
+        }
+        .progress-line.completed {
+            background: var(--color-primary);
+        }
+        .complete-button {
+            background: var(--color-primary);
+            color: white;
+            border-radius: 16px;
+            padding: 16px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+        .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <main class="min-h-screen pb-20 page-enter">
+        <!-- 頂部標題 -->
+        <section class="deep-writing-header p-6 pt-12 pb-16 relative">
+            <div class="ink-line"></div>
+            <div class="title-container">
+                <a href="prompt-selector.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                    <i class="fas fa-arrow-left" style="color: var(--color-brown);"></i>
+                </a>
+                <h1 class="main-title">Deep Writing</h1>
+                <a href="javascript:void(0)" class="bg-white bg-opacity-30 p-2 rounded-full" id="helpButton">
+                    <i class="fas fa-lightbulb" style="color: var(--color-brown);"></i>
+                </a>
+            </div>
+                    <div class="task-progress">
+                        <div class="progress-point completed">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <div class="progress-line completed"></div>
+                        <div class="progress-point completed">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <div class="progress-line completed"></div>
+                        <div class="progress-point current">
+                            <span>3</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-point">
+                            <span>4</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-point">
+                            <span>5</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="color: var(--color-brown);" class="text-center text-sm mt-8">進入回憶、釋放舊創傷</p>
+            </div>
+        </section>
+        
+        <!-- 主題與動物卡片 -->
+        <section class="px-5 mt-4">
+            <div class="flex justify-between mb-3">
+                <div class="theme-tag py-2 px-4 rounded-full inline-flex items-center">
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center mr-2" style="background: var(--color-accent);">
+                        <i class="fas fa-shield-alt text-xs" style="color: var(--color-primary);"></i>
+                    </div>
+                    <span class="font-medium text-sm">恐懼突破</span>
+                </div>
+                <div class="theme-tag py-2 px-4 rounded-full inline-flex items-center">
+                    <span class="font-medium text-sm">步驟 2/5</span>
+                </div>
+            </div>
+            
+            <!-- 動物卡片展示 -->
+            <div class="animal-card mb-5">
+                <div class="animal-card-inner">
+                    <div class="flex items-center p-3">
+                        <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-paw text-xl" style="color: var(--color-primary);"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium" style="color: var(--color-brown);">獅子</h3>
+                            <p class="text-xs" style="color: var(--color-text-secondary);">能量：勇氣、領導力、自信</p>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-white">
+                        <p class="text-sm italic" style="color: var(--color-text);">「你內在的力量比你想像的更強大，你有權表達自己的真實聲音。」</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 回憶探索區域 -->
+        <section class="px-5">
+            <div class="bg-white rounded-xl p-5 shadow-md mb-5">
+                <h3 class="font-medium mb-3" style="color: var(--color-brown);">回憶探索</h3>
+                <div class="prompt-box p-4 rounded-lg mb-4">
+                    <p style="color: var(--color-text);">這個主題讓你想起的過去事件是？試著描述當時的情境和感受。</p>
+                </div>
+                <textarea id="memoryTextarea" class="writing-textarea w-full resize-none" placeholder="開始書寫...例如：這讓我想起在學校演講時的恐懼，當所有人都看著我時..."></textarea>
+                <div class="flex justify-between items-center mt-3">
+                    <div class="timer text-sm">
+                        <i class="far fa-clock mr-1"></i> <span id="timerDisplay">00:00</span>
+                    </div>
+                    <div id="wordCounter" class="word-counter text-sm">
+                        0/120 字
+                    </div>
+                </div>
+                <div class="text-xs mt-2" style="color: var(--color-text-secondary);">建議：真實描述當時的感受，不需要過濾或美化</div>
+            </div>
+        </section>
+        
+        <!-- 情緒選擇區 -->
+        <section class="px-5">
+            <div class="bg-white rounded-xl p-5 shadow-md mb-5">
+                <h3 class="font-medium mb-3" style="color: var(--color-brown);">當時的我感受到...</h3>
+                <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="emotion-chip">恐懼</div>
+                    <div class="emotion-chip">羞愧</div>
+                    <div class="emotion-chip">無助</div>
+                    <div class="emotion-chip">憤怒</div>
+                    <div class="emotion-chip">被忽視</div>
+                    <div class="emotion-chip">悲傷</div>
+                    <div class="emotion-chip">被拒絕</div>
+                    <div class="emotion-chip">焦慮</div>
+                </div>
+                
+                <h3 class="font-medium mb-3 mt-5" style="color: var(--color-brown);">那時候的我需要的是...</h3>
+                <div class="flex flex-wrap gap-2">
+                    <div class="emotion-chip">安全感</div>
+                    <div class="emotion-chip">被理解</div>
+                    <div class="emotion-chip">支持</div>
+                    <div class="emotion-chip">自由</div>
+                    <div class="emotion-chip">被肯定</div>
+                    <div class="emotion-chip">被接納</div>
+                    <div class="emotion-chip">信任</div>
+                    <div class="emotion-chip">愛</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 提示與建議 -->
+        <section class="px-5 mb-5" id="helpSection" style="display: none;">
+            <div class="bg-white rounded-xl p-5 shadow-md">
+                <h3 class="font-medium mb-3 flex items-center" style="color: var(--color-brown);">
+                    <i class="fas fa-lightbulb mr-2" style="color: var(--color-primary);"></i>
+                    寫作提示
+                </h3>
+                <ul class="space-y-2 text-sm" style="color: var(--color-text);">
+                    <li class="flex items-start">
+                        <i class="fas fa-circle text-xs mt-1 mr-2" style="color: var(--color-primary);"></i>
+                        <span>描述事件時，注意身體感受（心跳加速、胃部緊縮等）</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-circle text-xs mt-1 mr-2" style="color: var(--color-primary);"></i>
+                        <span>你當時內心的對話是什麼？寫下當時的想法</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-circle text-xs mt-1 mr-2" style="color: var(--color-primary);"></i>
+                        <span>這個情境和現在的問題有什麼相似之處？</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- 完成按鈕 -->
+        <section class="px-5 mt-4 mb-8">
+            <a href="memory-rewrite.html" class="complete-button block">
+                <i class="fas fa-check mr-2"></i> 完成書寫
+            </a>
+            <p class="text-xs text-center mt-2" style="color: var(--color-text-secondary);">完成後將進入記憶重寫階段</p>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const memoryTextarea = document.getElementById('memoryTextarea');
+            const wordCounter = document.getElementById('wordCounter');
+            const emotionChips = document.querySelectorAll('.emotion-chip');
+            const helpButton = document.getElementById('helpButton');
+            const helpSection = document.getElementById('helpSection');
+            
+            // 計時器功能
+            let seconds = 0;
+            const timerDisplay = document.getElementById('timerDisplay');
+            setInterval(function() {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                timerDisplay.textContent = `${minutes < 10 ? '0' + minutes : minutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+            }, 1000);
+            
+            // 更新字數統計
+            memoryTextarea.addEventListener('input', function() {
+                const wordCount = this.value.trim().length;
+                wordCounter.textContent = `${wordCount}/120 字`;
+                
+                if (wordCount >= 120) {
+                    wordCounter.classList.add('reached');
+                } else {
+                    wordCounter.classList.remove('reached');
+                }
+            });
+            
+            // 情緒選擇
+            emotionChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+            
+            // 幫助按鈕
+            helpButton.addEventListener('click', function() {
+                if (helpSection.style.display === 'none') {
+                    helpSection.style.display = 'block';
+                    helpButton.innerHTML = '<i class="fas fa-times" style="color: var(--color-brown);"></i>';
+                } else {
+                    helpSection.style.display = 'none';
+                    helpButton.innerHTML = '<i class="fas fa-lightbulb" style="color: var(--color-brown);"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

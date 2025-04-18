@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>EMOTIONAL RELEASE</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* 核心變量 */
+        :root {
+            --warm-white: #F9F6F2;
+            --ink-black: #1A1A1A;
+            --primary: #7C3AED;
+            --serif-font: 'Playfair Display', serif;
+            --mono-font: 'IBM Plex Mono', monospace;
+            
+            /* 情緒色彩 */
+            --tranquility: #60A5FA;
+            --peace: #34D399;
+            --presence: #F59E0B;
+            --joy: #EC4899;
+            --power: #8B5CF6;
+        }
+
+        /* 基礎樣式 */
+        body {
+            background-color: var(--warm-white);
+            color: var(--ink-black);
+            font-family: var(--serif-font);
+        }
+
+        /* 主標題系統 */
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+
+        /* 標題系統 */
+        .geometric-title {
+            font-family: var(--serif-font);
+            font-weight: 700;
+            font-size: 4rem;
+            line-height: 1.2;
+            letter-spacing: 0.1em;
+        }
+
+        .section-title {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6B7280;
+        }
+
+        /* 卡片系統 */
+        .card-frame {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .card-frame:hover {
+            border-color: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* 資訊網格 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .info-label {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-family: var(--serif-font);
+            font-size: 16px;
+            color: var(--ink-black);
+        }
+
+        /* 按鈕系統 */
+        .primary-button {
+            font-family: var(--mono-font);
+            font-size: 14px;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* 圖標系統 */
+        .card-icon {
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            transition: color 0.3s ease;
+        }
+
+        .card-frame:hover .card-icon {
+            color: var(--primary);
+        }
+
+        /* 情緒指示器 */
+        .emotion-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .emotion-dot.tranquility { background-color: var(--tranquility); }
+        .emotion-dot.peace { background-color: var(--peace); }
+        .emotion-dot.presence { background-color: var(--presence); }
+        .emotion-dot.joy { background-color: var(--joy); }
+        .emotion-dot.power { background-color: var(--power); }
+
+        /* 裝飾元素 */
+        .ink-line {
+            position: absolute;
+            width: 120%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* 批次標籤 */
+        .batch-label {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: #B91C1C;
+            letter-spacing: 0.05em;
+        }
+
+        /* 頁面轉場 */
+        .page-transition {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <main class="container mx-auto px-4 py-16 page-transition">
+        <!-- 頁面內容將在這裡插入 -->
+    </main>
+
+    <script>
+        // 通用功能將在這裡添加
+        document.addEventListener('DOMContentLoaded', function() {
+            // 墨水線動畫
+            const lines = document.querySelectorAll('.ink-line');
+            lines.forEach(line => {
+                line.style.transform = 'translateX(-10%)';
+                setTimeout(() => {
+                    line.style.transition = 'transform 20s ease-in-out';
+                    line.style.transform = 'translateX(0%)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html> 

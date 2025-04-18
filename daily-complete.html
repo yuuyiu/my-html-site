@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 完成</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-violet: #7C3AED;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .container-custom {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero-title {
+            color: var(--color-primary);
+            font-size: 24px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 700;
+            line-height: 32px;
+        }
+
+        .hero-subtitle {
+            color: var(--color-primary);
+            font-size: 16px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 400;
+            line-height: 24px;
+            text-align: center;
+        }
+
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .complete-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .complete-icon i {
+            color: var(--color-primary);
+            font-size: 40px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: var(--color-accent);
+            margin: 16px 0;
+        }
+
+        .emotion-tag {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .topic-tag {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .feedback-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 24px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .feedback-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-icon i {
+            font-size: 24px;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .feedback-content {
+            background: var(--color-bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .action-button {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 12px 20px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button i {
+            color: var(--color-primary);
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confetti 3s ease-in-out forwards;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main class="min-h-screen pb-20 page-transition relative overflow-hidden">
+        <!-- 頂部區域 -->
+        <section class="hero-gradient px-6 pt-12 pb-8 relative pb-20">
+            <div class="ink-line"></div>
+            <div class="container-custom">
+                <h1 class="main-title">Complete</h1>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="hero-title">釋放完成</h2>
+                    <a href="home.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                        <i class="fas fa-times text-primary"></i>
+                    </a>
+                </div>
+                <p class="hero-subtitle">你已成功釋放了今天的情緒</p>
+            </div>
+        </section>
+
+        <div class="container-custom">
+            <!-- 完成圖標 -->
+            <div class="flex justify-center">
+                <div class="complete-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+
+            <!-- 釋放摘要 -->
+            <section class="mt-6">
+                <div class="summary-card">
+                    <h2 class="text-lg font-semibold text-primary mb-4">釋放摘要</h2>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <span class="text-3xl mr-3">🦁</span>
+                            <div>
+                                <h3 class="font-medium text-text">獅子卡</h3>
+                                <p class="text-text-secondary text-xs">勇氣與力量</p>
+                            </div>
+                        </div>
+                        <span class="emotion-tag">#24</span>
+                    </div>
+                    <div class="card-divider"></div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-secondary">情緒類型</span>
+                            <span class="emotion-tag">憤怒</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-secondary">相關主題</span>
+                            <span class="topic-tag">自我成長</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-secondary">書寫時間</span>
+                            <span class="text-text-secondary text-sm">2023-06-22 15:30</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI 回饋 -->
+            <section class="mt-6">
+                <div class="feedback-card">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-3" style="background: var(--color-accent);">
+                        <div class="feedback-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-semibold text-primary">AI 反思助手</h2>
+                            <p class="text-text-secondary text-xs">基於你的書寫內容生成</p>
+                        </div>
+                    </div>
+                    <div class="feedback-content">
+                        <p class="text-text leading-relaxed">
+                            在你的書寫中，我看到你正在面對內心的憤怒，這與獅子卡的能量形成了有趣的對比。憤怒往往是我們內在力量的表現，就像獅子的怒吼一樣。
+                        </p>
+                        <p class="text-text leading-relaxed mt-3">
+                            當你感到憤怒時，試著將這股能量轉化為設定界限的勇氣。就像獅子守護領地一樣，你有權為自己的需求挺身而出。這不是關於控制他人，而是關於尊重自己的感受和需求。
+                        </p>
+                        <p class="text-right text-primary text-sm mt-3">— 心靈助手</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 行動按鈕 -->
+            <section class="mt-8 grid grid-cols-2 gap-4">
+                <a href="home.html" class="action-button">
+                    <i class="fas fa-home"></i>
+                    <span class="text-text font-medium">返回首頁</span>
+                </a>
+                <a href="belief-wall.html" class="action-button">
+                    <i class="fas fa-heart"></i>
+                    <span class="text-text font-medium">保存至信念牆</span>
+                </a>
+            </section>
+        </div>
+
+        <!-- 紙屑效果 -->
+        <div id="confetti-container"></div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 創建紙屑效果
+            const container = document.getElementById('confetti-container');
+            const colors = ['#825D65', '#F2EFE8', '#E9CCBE', '#F5F1ED'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, Math.random() * 1000);
+            }
+        });
+    </script>
+</body>
+</html> 

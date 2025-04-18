@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 釋放完成</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-brown: #40372F;
+            --color-brown-light: #736558;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .complete-header {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-title {
+            color: var(--color-primary);
+            font-size: 24px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 700;
+            line-height: 32px;
+        }
+
+        .hero-subtitle {
+            color: var(--color-primary);
+            font-size: 16px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 400;
+            line-height: 24px;
+        }
+
+        .complete-icon {
+            animation: pulse 2s infinite ease-in-out;
+            background: white;
+            color: var(--color-primary);
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tag {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .action-btn {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            color: var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confetti 3s ease-in-out forwards;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main class="min-h-screen pb-20 page-transition">
+        <!-- 頂部區域 -->
+        <section class="complete-header px-6 pt-12 pb-8 relative">
+            <div class="ink-line"></div>
+            <div class="container-custom">
+                <h1 class="main-title"> Release Complete</h1>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="hero-title">釋放完成</h2>
+                    <a href="home.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                        <i class="fas fa-home text-primary"></i>
+                    </a>
+                </div>
+                <p class="hero-subtitle">你已成功完成情緒釋放練習</p>
+            </div>
+        </section>
+
+        <!-- 完成圖標 -->
+        <section class="flex justify-center -mt-10">
+            <div class="w-20 h-20 rounded-full shadow-lg flex items-center justify-center complete-icon">
+                <i class="fas fa-check-circle text-4xl"></i>
+            </div>
+        </section>
+
+        <!-- 釋放摘要 -->
+        <section class="px-5 mt-6">
+            <div class="card">
+                <h2 class="text-lg font-semibold mb-3" style="color: var(--color-brown);">釋放摘要</h2>
+                <div class="flex items-center justify-between mb-4 pb-4 border-b" style="border-color: var(--color-accent);">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-3" style="background: var(--color-accent);">
+                            <i class="fas fa-dove" style="color: var(--color-primary);"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium" style="color: var(--color-brown);">貓頭鷹</h3>
+                            <p style="color: var(--color-text-secondary);" class="text-xs">智慧與洞察力</p>
+                        </div>
+                    </div>
+                    <span class="tag">#32</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                    <span style="color: var(--color-text-secondary);" class="text-sm">釋放情緒</span>
+                    <span class="tag">恐懼</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                    <span style="color: var(--color-text-secondary);" class="text-sm">相關主題</span>
+                    <span class="tag">自我成長</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                    <span style="color: var(--color-text-secondary);" class="text-sm">色彩療癒</span>
+                    <span class="flex items-center">
+                        <span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-1"></span>
+                        <span style="color: var(--color-text);" class="text-xs">藍色</span>
+                    </span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span style="color: var(--color-text-secondary);" class="text-sm">釋放時間</span>
+                    <span style="color: var(--color-text);" class="text-xs">2023-06-22 16:45</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- AI 反思 -->
+        <section class="px-5 mt-6">
+            <div class="card">
+                <div class="flex items-start mb-4">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3 flex-shrink-0" style="background: var(--color-accent);">
+                        <i class="fas fa-brain" style="color: var(--color-primary);"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold" style="color: var(--color-brown);">AI 反思助手</h2>
+                        <p style="color: var(--color-text-secondary);" class="text-xs">基於你的釋放內容生成</p>
+                    </div>
+                </div>
+                <div class="p-4 rounded-lg mb-4" style="background: var(--color-accent);">
+                    <p style="color: var(--color-text);" class="leading-relaxed">
+                        在你的釋放過程中，我注意到你面對恐懼時，貓頭鷹的智慧能量給予了你新的視角。當我們從高處俯瞰問題時，往往能看到更多解決方案。
+                    </p>
+                    <p style="color: var(--color-text);" class="leading-relaxed mt-3">
+                        你選擇了藍色進行療癒，這很適合處理恐懼情緒。藍色能帶來平靜，幫助我們從混亂的思緒中找到清晰。請記住，恐懼常常是我們成長的入口，每次面對它，你都會變得更堅強。
+                    </p>
+                </div>
+                <div class="border-t pt-4" style="border-color: var(--color-accent);">
+                    <h3 class="font-medium mb-2" style="color: var(--color-brown);">今日反思金句</h3>
+                    <p class="quote-text text-sm" style="color: var(--color-text-secondary);">
+                        恐懼只是內在智慧的另一種表達方式，當你願意聆聽它時，它會指引你朝向真正的成長。
+                    </p>
+                    <div class="flex justify-end mt-2">
+                        <button class="flex items-center text-xs" style="color: var(--color-primary);">
+                            <i class="far fa-heart mr-1"></i> 收藏金句
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 色彩冥想建議 -->
+        <section class="px-5 mt-6">
+            <div class="card">
+                <h2 class="text-lg font-semibold mb-3 flex items-center" style="color: var(--color-brown);">
+                    <i class="fas fa-palette mr-2" style="color: var(--color-primary);"></i>
+                    色彩冥想建議
+                </h2>
+                <div class="p-4 rounded-lg border" style="background: var(--color-accent); border-color: var(--color-accent);">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full mr-3 flex-shrink-0"></div>
+                        <div>
+                            <h3 class="font-medium mb-1" style="color: var(--color-brown);">藍色能量冥想</h3>
+                            <p class="text-sm" style="color: var(--color-text);">
+                                找一個安靜的地方，閉上眼睛，深呼吸。想像藍色的光環繞著你，隨著每一次吸氣，藍色的能量進入你的身體，撫平恐懼，帶來寧靜。用5-10分鐘的時間感受這股藍色能量如何轉化你的內在空間。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 下一步按鈕 -->
+        <section class="px-5 mt-6 grid grid-cols-2 gap-4 mb-8">
+            <a href="home.html" class="action-btn flex flex-col items-center">
+                <i class="fas fa-home text-xl mb-2"></i>
+                <span class="text-sm font-medium">返回首頁</span>
+            </a>
+            <a href="daily-flow-calendar.html" class="action-btn flex flex-col items-center">
+                <i class="fas fa-calendar-alt text-xl mb-2"></i>
+                <span class="text-sm font-medium">查看所有記錄</span>
+            </a>
+        </section>
+        
+        <!-- 紙屑效果容器 -->
+        <div id="confetti-container"></div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 創建紙屑效果
+            const container = document.getElementById('confetti-container');
+            const colors = ['#825D65', '#F2EFE8', '#736558', '#40372F', '#FCFAF6'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    container.appendChild(confetti);
+                    
+                    // 移除紙屑
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, Math.random() * 1000);
+            }
+            
+            // 收藏金句
+            const favoriteBtn = document.querySelector('.fa-heart').parentElement;
+            favoriteBtn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.color = '#F87171';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.color = 'var(--color-primary)';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

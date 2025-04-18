@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 註冊</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-brown: #40372F;
+            --color-brown-light: #736558;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .signup-header {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 0;
+        }
+       
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .form-container {
+            animation: slideUp 0.5s ease-out;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+            font-family: 'Noto Serif HK', serif;
+            color: var(--color-text);
+            background: white;
+            border: 1px solid var(--color-accent);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-login-btn {
+            transition: all 0.3s ease;
+            background: var(--color-accent);
+            color: var(--color-primary);
+            border-radius: 9999px;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-icon {
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-primary);
+        }
+
+        .gradient-button {
+            background: var(--color-primary);
+            color: white;
+            border-radius: 16px;
+            padding: 16px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            background: var(--color-accent);
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main class="min-h-screen page-enter">
+        <!-- 頂部標題 -->
+        <section class="signup-header p-6 pt-12 pb-16 relative">
+            <div class="ink-line"></div>
+            <div class="flex justify-between items-center mb-4">
+                <a href="login.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                    <i class="fas fa-arrow-left" style="color: var(--color-primary);"></i>
+                </a>
+            </div>
+            <div class="flex justify-center items-center mb-6">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <i class="fas fa-seedling text-3xl" style="color: var(--color-primary);"></i>
+                </div>
+            </div>
+            <h1 class="main-title">Sign Up</h1>
+            <p style="color: var(--color-brown);" class="text-center text-sm">加入我們，開啟內在成長之旅</p>
+        </section>
+        
+        <!-- 註冊表單 -->
+        <section class="px-5 -mt-12 relative z-10">
+            <div class="form-container p-6">
+                <!-- 暱稱輸入 -->
+                <div class="mb-4 relative">
+                    <label for="displayName" class="block text-sm font-medium mb-1" style="color: var(--color-brown);">暱稱 (選填)</label>
+                    <div class="relative">
+                        <input type="text" id="displayName" class="form-input w-full pl-10 p-3 rounded-lg" placeholder="您希望我們怎麼稱呼您">
+                        <i class="fas fa-user absolute left-3 input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- 電子郵件輸入 -->
+                <div class="mb-4 relative">
+                    <label for="email" class="block text-sm font-medium mb-1" style="color: var(--color-brown);">電子郵件</label>
+                    <div class="relative">
+                        <input type="email" id="email" class="form-input w-full pl-10 p-3 rounded-lg" placeholder="請輸入您的電子郵件">
+                        <i class="fas fa-envelope absolute left-3 input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- 密碼輸入 -->
+                <div class="mb-4 relative">
+                    <label for="password" class="block text-sm font-medium mb-1" style="color: var(--color-brown);">密碼</label>
+                    <div class="relative">
+                        <input type="password" id="password" class="form-input w-full pl-10 p-3 rounded-lg" placeholder="請設定至少 8 位密碼">
+                        <i class="fas fa-lock absolute left-3 input-icon"></i>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2" style="color: var(--color-primary);">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- 密碼強度指示器 -->
+                    <div class="password-strength">
+                        <div class="password-strength-bar w-2/3"></div>
+                    </div>
+                    <div class="flex justify-between text-xs mt-1">
+                        <span style="color: var(--color-text-secondary);">弱</span>
+                        <span style="color: var(--color-primary);" class="font-medium">中等</span>
+                        <span style="color: var(--color-text-secondary);">強</span>
+                    </div>
+                </div>
+                
+                <!-- 確認密碼輸入 -->
+                <div class="mb-6 relative">
+                    <label for="confirmPassword" class="block text-sm font-medium mb-1" style="color: var(--color-brown);">確認密碼</label>
+                    <div class="relative">
+                        <input type="password" id="confirmPassword" class="form-input w-full pl-10 p-3 rounded-lg" placeholder="請再次輸入密碼">
+                        <i class="fas fa-lock absolute left-3 input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- 同意條款勾選 -->
+                <div class="mb-6">
+                    <label class="flex items-start">
+                        <input type="checkbox" class="mt-1 h-4 w-4 rounded" style="color: var(--color-primary);">
+                        <span class="ml-2 text-sm" style="color: var(--color-text-secondary);">
+                            我已閱讀並同意 <a href="#" style="color: var(--color-primary);" class="underline">服務條款</a> 和 
+                            <a href="#" style="color: var(--color-primary);" class="underline">隱私政策</a>
+                        </span>
+                    </label>
+                </div>
+                
+                <!-- 註冊按鈕 -->
+                <button class="gradient-button w-full mb-6">
+                    建立帳號
+                </button>
+                
+                <!-- 分隔線 -->
+                <div class="flex items-center my-6">
+                    <div class="flex-grow border-t" style="border-color: var(--color-accent);"></div>
+                    <span class="px-3 text-sm" style="color: var(--color-text-secondary);">或使用其他方式註冊</span>
+                    <div class="flex-grow border-t" style="border-color: var(--color-accent);"></div>
+                </div>
+                
+                <!-- 社群註冊 -->
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button class="social-login-btn">
+                        <i class="fab fa-google text-xl"></i>
+                    </button>
+                    <button class="social-login-btn">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </button>
+                    <button class="social-login-btn">
+                        <i class="fab fa-apple text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- 登入連結 -->
+                <div class="text-center">
+                    <span class="text-sm" style="color: var(--color-text-secondary);">已有帳號？</span>
+                    <a href="login.html" class="text-sm font-medium ml-1" style="color: var(--color-primary);">立即登入</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 底部填充 -->
+        <div class="h-8"></div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerButton = document.querySelector('.gradient-button');
+            const passwordField = document.getElementById('password');
+            const confirmPasswordField = document.getElementById('confirmPassword');
+            const showPasswordButton = document.querySelector('.fa-eye').parentElement;
+            
+            // 密碼顯示切換
+            showPasswordButton.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+            
+            // 註冊按鈕點擊
+            registerButton.addEventListener('click', function() {
+                // 這裡可以添加表單驗證邏輯
+                window.location.href = 'profile.html';
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心靈釋放 - 抽取卡片</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Noto+Serif+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #825D65;
+            --color-bg: #FCFAF6;
+            --color-accent: #F2EFE8;
+            --color-text: #4B5563;
+            --color-text-secondary: #4B5563;
+            --color-violet: #7C3AED;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: 'Noto Serif HK', serif;
+        }
+
+        .main-title {
+            font-family: "Philosopher", serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            .main-title {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+
+        .hero-gradient {
+            background: linear-gradient(161deg, #F5F1ED 0%, #E9CCBE 100%);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .container-custom {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .card-deck {
+            position: relative;
+            height: 350px;
+            perspective: 1000px;
+            margin: 48px auto;
+        }
+
+        .card {
+            position: absolute;
+            width: 250px;
+            height: 350px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.20);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-back {
+            background: var(--color-accent);
+            background-size: cover;
+        }
+
+        .card-front {
+            transform: rotateY(180deg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 15px;
+            color: white;
+        }
+
+        .card-front::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        .card.drawn {
+            transform: translateX(-50%) translateY(-50px) rotateY(180deg);
+        }
+
+        .draw-method {
+            padding: 8px 24px;
+            border: 2px solid var(--color-primary);
+            border-radius: 9999px;
+            color: var(--color-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .draw-method.active {
+            background: var(--color-accent);
+        }
+
+        .draw-button {
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .draw-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            padding: 28px 20px;
+        }
+
+        .tip-box {
+            background: var(--color-accent);
+            border-radius: 8px;
+            padding: 13px;
+        }
+
+        .popular-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .popular-card-image {
+            height: 96px;
+            position: relative;
+        }
+
+        .popular-card-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5) 100%);
+        }
+
+        .premium-badge {
+            background: #EDE9FE;
+            color: #825D65;
+            padding: 2px 6px;
+            border-radius: 9999px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 16px;
+            }
+            
+            .card {
+                width: 200px;
+                height: 280px;
+            }
+            
+            .popular-card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-title {
+            color: var(--color-primary);
+            font-size: 24px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 700;
+            line-height: 32px;
+        }
+
+        .hero-subtitle {
+            color: var(--color-primary);
+            font-size: 16px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 400;
+            line-height: 24px;
+            text-align: center;
+        }
+
+        .upgrade-link {
+            color: var(--color-primary);
+            font-size: 12px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 500;
+            line-height: 16px;
+        }
+
+        .text-description {
+            color: var(--color-text);
+            font-size: 14px;
+            font-family: 'Noto Serif HK', serif;
+            font-weight: 400;
+            line-height: 20px;
+        }
+        .ink-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 Q250,0 500,50 T1000,50' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <main class="min-h-screen pb-20">
+        <!-- 頂部區域 -->
+        <section class="hero-gradient px-6 pt-12 pb-8 relative">
+            <div class="ink-line"></div>
+            <div class="container-custom">
+                <h1 class="main-title">Pick a Card</h1>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="hero-title">抽取動物卡</h2>
+                    <a href="home.html" class="bg-white bg-opacity-30 p-2 rounded-full">
+                        <i class="fas fa-home text-primary"></i>
+                    </a>
+                </div>
+                <p class="hero-subtitle">每張卡片都有特定能量，引導你的情緒釋放</p>
+            </div>
+        </section>
+
+        <!-- 抽卡方式選擇 -->
+        <div class="container-custom">
+            <section class="flex justify-center space-x-4 mt-6">
+                <button class="draw-method active">
+                    <i class="fas fa-magic mr-2"></i>
+                    隨機抽取
+                </button>
+                <button class="draw-method">
+                    <i class="fas fa-list-ol mr-2"></i>
+                    卡牌清單
+                </button>
+            </section>
+
+            <!-- 卡片區域 -->
+            <section class="card-deck">
+                <div class="card">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="text-sm z-10">#08 保護者</span>
+                        <h3 class="text-xl font-bold mb-1 z-10">熊</h3>
+                        <p class="text-sm z-10">象徵力量與勇氣，守護內在脆弱面</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 抽卡按鈕 -->
+            <section class="text-center">
+                <button class="draw-button">
+                    <i class="fas fa-hand-sparkles mr-2"></i>
+                    抽取卡片
+                </button>
+                <p class="text-text-secondary mt-4 text-sm">點擊抽取卡片開始釋放情緒之旅</p>
+            </section>
+
+            <!-- 關於動物卡 -->
+            <section class="mt-8">
+                <div class="info-card">
+                    <h2 class="text-lg font-semibold text-text mb-3 flex items-center">
+                        <i class="fas fa-info-circle text-primary mr-2"></i>
+                        關於動物卡
+                    </h2>
+                    <p class="text-description mb-4">
+                        每張動物卡都有其特定的能量和象徵意義，能夠幫助你探索和釋放情緒。當你抽到一張卡時，讓自己感受這張卡所帶來的能量，它往往能反映出你當下需要關注的情緒面向。
+                    </p>
+                    <div class="tip-box mb-4">
+                        <p class="text-primary">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            <span class="font-medium">提示：</span>
+                            釋放前先花些時間與卡片建立連結，感受它的能量和訊息。
+                        </p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-text-secondary text-xs">高級會員可解鎖全部100張卡牌</span>
+                        <a href="upgrade.html" class="upgrade-link">升級會員</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 熱門卡片 -->
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold text-text mb-4">熱門卡片</h2>
+                <div class="grid grid-cols-2 gap-4 popular-card-grid">
+                    <div class="popular-card">
+                        <div class="popular-card-image">
+                            <img src="https://images.unsplash.com/photo-1555169062-013468b47731" alt="Wolf" class="w-full h-full object-cover">
+                            <span class="absolute bottom-2 left-2 text-white font-bold z-10">狼</span>
+                        </div>
+                        <div class="p-3">
+                            <span class="text-text-secondary text-xs">#01 領導者</span>
+                            <p class="text-text-secondary text-xs mt-1">解鎖內在的力量和領導才能</p>
+                        </div>
+                    </div>
+
+                    <div class="popular-card">
+                        <div class="popular-card-image">
+                            <img src="https://images.unsplash.com/photo-1566490747764-8a9cfc01bbd9" alt="Butterfly" class="w-full h-full object-cover">
+                            <span class="absolute bottom-2 left-2 text-white font-bold z-10">蝴蝶</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-text-secondary text-xs">#07 轉化者</span>
+                            </div>
+                            <p class="text-text-secondary text-xs mt-1">轉化恐懼為自由與喜悅</p>
+                        </div>
+                    </div>
+
+                    <div class="popular-card">
+                        <div class="popular-card-image">
+                            <img src="https://images.unsplash.com/photo-1594613547233-9799767a62f0" alt="Elephant" class="w-full h-full object-cover">
+                            <span class="absolute bottom-2 left-2 text-white font-bold z-10">大象</span>
+                        </div>
+                        <div class="p-3">
+                            <span class="text-text-secondary text-xs">#12 智者</span>
+                            <p class="text-text-secondary text-xs mt-1">連結內在智慧與記憶</p>
+                        </div>
+                    </div>
+
+                    <div class="popular-card">
+                        <div class="popular-card-image">
+                            <img src="https://images.unsplash.com/photo-1610630413751-f1bc92e15e2a" alt="Phoenix" class="w-full h-full object-cover">
+                            <span class="absolute bottom-2 left-2 text-white font-bold z-10">鳳凰</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-text-secondary text-xs">#28 重生者</span>
+                                <span class="premium-badge">高級</span>
+                            </div>
+                            <p class="text-text-secondary text-xs mt-1">從灰燼中重生，獲得新生</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 導航欄容器 -->
+    <div id="navbar-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const drawButton = document.querySelector('.draw-button');
+            const card = document.querySelector('.card');
+            const drawMethods = document.querySelectorAll('.draw-method');
+            
+            drawMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    drawMethods.forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            drawButton.addEventListener('click', function() {
+                card.classList.add('drawn');
+                setTimeout(() => {
+                    window.location.href = 'theme-selector.html';
+                }, 2000);
+            });
+
+            // 載入導航欄
+            fetch('../components/navbar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading navbar:', error);
+                });
+        });
+    </script>
+</body>
+</html> 

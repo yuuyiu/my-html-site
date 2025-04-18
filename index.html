@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>心靈釋放</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* 引入基礎樣式 */
+        @import url('template.html');
+
+        /* 首頁特定樣式 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            position: relative;
+            padding: 2rem;
+            background: white;
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-family: var(--serif-font);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .feature-description {
+            font-family: var(--serif-font);
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .begin-button {
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            font-family: var(--mono-font);
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .begin-button:hover {
+            background: #6D28D9;
+            transform: translateY(-1px);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-family: var(--mono-font);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-warm-white">
+    <main class="container mx-auto px-4 py-16 page-transition">
+        <!-- 頁面標題 -->
+        <div class="text-center mb-12">
+            <h1 class="geometric-title mb-4">心靈釋放</h1>
+            <p class="section-title">EMOTIONAL RELEASE</p>
+        </div>
+
+        <!-- 功能區塊 -->
+        <div class="feature-grid">
+            <!-- 每日釋放 -->
+            <div class="feature-card card-frame">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h2 class="feature-title">每日釋放</h2>
+                <p class="feature-description">透過書寫練習，釋放當下的情緒，找回內在的平靜。</p>
+                <a href="daily-release-writing.html" class="primary-button mt-4">
+                    開始釋放
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 抽卡引導 -->
+            <div class="feature-card card-frame">
+                <i class="fas fa-paw feature-icon"></i>
+                <h2 class="feature-title">動物智慧</h2>
+                <p class="feature-description">讓動物精神為你帶來智慧的指引，協助你面對當下的挑戰。</p>
+                <a href="card-draw.html" class="primary-button mt-4">
+                    抽取卡牌
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 信念牆 -->
+            <div class="feature-card card-frame">
+                <i class="fas fa-brain feature-icon"></i>
+                <h2 class="feature-title">信念探索</h2>
+                <p class="feature-description">探索並轉化限制性信念，建立支持性的新思維模式。</p>
+                <a href="belief-wall.html" class="primary-button mt-4">
+                    探索信念
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 統計分析 -->
+            <div class="feature-card card-frame">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h2 class="feature-title">成長軌跡</h2>
+                <p class="feature-description">回顧你的情緒釋放歷程，觀察內在的轉變與成長。</p>
+                <a href="stats.html" class="primary-button mt-4">
+                    查看統計
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 開始按鈕 -->
+        <div class="text-center">
+            <a href="daily-release-writing.html" class="begin-button">
+                開始今日的釋放
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 通知提示 -->
+        <div class="notification" id="notification" style="display: none;">
+            <i class="fas fa-bell text-primary"></i>
+            <span>歡迎回來！今天還沒有進行情緒釋放喔</span>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 顯示通知
+            setTimeout(() => {
+                const notification = document.getElementById('notification');
+                notification.style.display = 'flex';
+                
+                // 5秒後自動隱藏
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 300);
+                }, 5000);
+            }, 2000);
+
+            // 添加觸覺回饋
+            const buttons = document.querySelectorAll('a');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate(50);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
